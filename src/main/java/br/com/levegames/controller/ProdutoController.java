@@ -40,6 +40,7 @@ public class ProdutoController {
     List<Console> consoles = consoleDao.getConsoles();
     
     ModelAndView mv = new ModelAndView("backoffice-produtos-novo");
+    
     mv.addObject("consoles", consoles);
     mv.addObject("produto", p);
 
@@ -67,6 +68,7 @@ public class ProdutoController {
     ModelAndView mv = new ModelAndView("backoffice-produtos");
 
     return mv;
+    
   }
 
 }

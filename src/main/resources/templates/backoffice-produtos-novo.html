@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="/cadastro-produto.js"></script>
     <title>Leve Games! Lista de Produtos</title>
   </head>
   <body>
@@ -43,7 +44,7 @@
         <form action="#" th:action="@{/Backoffice/Produtos/Novo}" th:object="${produto}" method='POST'>
           <div class="form-group">
             <label for="text">Título:</label>
-            <input type="text" class="form-control" placeholder="Digite o título" th:field="*{nome}" id="nome">
+            <input type="text" class="form-control w-50" placeholder="Digite o título" th:field="*{nome}" id="nome">
           </div>
           <div class="form-group">
             <label for="text">Descrição curta:</label>
@@ -74,7 +75,7 @@
           </div>
           <div class="form-group">
             <label for="select">Selecione o Console:</label>
-            <select class="form-control" th:field="*{console_id}" id="console_id">
+            <select class="form-control w-50" th:field="*{console_id}" id="console_id">
               <option value="-1"> -- </option>
               <option th:each="console : ${consoles}"
                       th:value="${console.id}"
@@ -82,7 +83,64 @@
             </select>
           </div>
 
-          <button type="submit" value="submit" class="btn btn-success">Cadastrar</button>
+          <div class="form-group">
+
+            <label for="text">Imagens do produto:</label>
+            <ul class="list-group" id="lista-imagens">
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                teste.jpg
+                <button type="button" class="btn btn-danger sm" onclick="$(this).closest('li').remove();">Remover</button>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                teste2.jpg
+                <button type="button" class="btn btn-danger sm" onclick="$(this).closest('li').remove();">Remover</button>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                teste3.jpg
+                <button type="button" class="btn btn-danger sm" onclick="$(this).closest('li').remove();">Remover</button>
+              </li>
+            </ul>
+
+          </div>
+          <div class="form-group" style="text-align: right" >
+            <!-- Button to Open the Modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+              Adicionar Imagem
+            </button>
+
+            <!-- The Modal -->
+            <div class="modal" id="myModal">
+              <div class="modal-dialog">
+                <div class="modal-content">
+
+                  <!-- Modal Header -->
+                  <div class="modal-header">
+                    <h4 class="modal-title">Adicionar Imagem</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+
+                  <!-- Modal body -->
+                  <div class="modal-body" style="text-align:left">
+                    <label for="text">Insira a URL da imagem:</label>
+            <input type="text" class="form-control" placeholder="https://dropbox..." id="url_imagem">
+                  </div>
+
+                  <!-- Modal footer -->
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal" onclick="addImage();">Adicionar</button>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <hr>
+          
+          <div class="form-group">
+            <button type="submit" value="submit" class="btn btn-success">Cadastrar</button>
+            <button class="btn btn-info" type="reset" value="Reset" onclick="const myNode = document.getElementById('lista-imagens');myNode.innerHTML = '';">Resetar</button>
+
         </form>
       </div>
     </main>
@@ -97,5 +155,6 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    
   </body>
 </html>
