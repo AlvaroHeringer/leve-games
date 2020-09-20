@@ -46,7 +46,7 @@ create table produtos(
     descricao_detalhada text,
 	preco decimal(10, 2) not null,
     qtde int not null,
-    ativo boolean,
+    disponivel_venda boolean,
     console_id int not null,
     registro_deletado boolean,
     foreign key (console_id) references consoles(id)

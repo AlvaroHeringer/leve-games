@@ -39,31 +39,55 @@
     <!-- Menu component end -->
     <main>
       <div class="container">
-        <h1 class="display-4" style="margin-top: 3rem">Consulta de Produtos</h1>
-        <br>
-        <table class="table table-borderless">
-          <thead class="bg-light">
-          <tr>
-            <th class="text-center">ID</th>
-            <th class="text-center">Nome</th>
-            <th class="text-center">Status</th>
-            <th class="text-center">Qtde</th>
-            <th class="text-center" colspan="2">Ação</th>
-          </tr>
-          </thead>
-          <tr th:each="game: ${games}">
-            <td class="text-center" th:text="${game.id}" />
-            <td class="text-center" th:text="${game.nome}" />
-            <td class="text-center" th:text="${game.disponivel_venda}" />
-            <td class="text-center" th:text="${game.qtde}" />
-            <td class="text-center"><a class="btn btn-outline-info btn-sm" th:href="${'/backoffice/produtos/delete/' + game.id}">Atualizar</a></td>
-            <td class="text-center"><a class="btn btn-outline-danger btn-sm" th:href="${'/backoffice/produtos/delete/' + game.id}">Excluir</a></td>
-          </tr>
-        </table>
+        <h1 class="display-4" style="margin-top: 3rem">Novo Produto</h1>
+        <form action="#" th:action="@{/Backoffice/Produtos/Novo}" th:object="${produto}" method='POST'>
+          <div class="form-group">
+            <label for="text">Título:</label>
+            <input type="text" class="form-control" placeholder="Digite o título" th:field="*{nome}" id="nome">
+          </div>
+          <div class="form-group">
+            <label for="text">Descrição curta:</label>
+            <input type="text" class="form-control" placeholder="Digite uma descrição curta" th:field="*{descricao_curta}" id="descricao_curta">
+          </div>
+          <div class="form-group">
+            <label for="comment">Descrição detalhada:</label>
+            <textarea type="text-area" class="form-control" rows="5" placeholder="Digite uma descrição detalhada" th:field="*{descricao_detalhada}" id="descricao_detalhada"></textarea>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="currency">Preço:</label>
+                <input type="number" class="form-control" placeholder="Digite o preço" th:field="*{preco}" id="preco">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="number">Quantidade em estoque:</label>
+                <input type="number" class="form-control" th:field="*{qtde}" id="qtde">
+              </div>
+            </div>
+          </div>
+          <div class="form-group form-check">
+            <label class="form-check-label">
+              <input class="form-check-input" type="checkbox" th:field="*{disponivel_venda}" id="disponivel_venda"> Disponível para vendas
+            </label>
+          </div>
+          <div class="form-group">
+            <label for="select">Selecione o Console:</label>
+            <select class="form-control" th:field="*{console_id}" id="console_id">
+              <option value="-1"> -- </option>
+              <option th:each="console : ${consoles}"
+                      th:value="${console.id}"
+                      th:utext="${console.nome}"/>
+            </select>
+          </div>
+
+          <button type="submit" value="submit" class="btn btn-success">Cadastrar</button>
+        </form>
       </div>
     </main>
     <!-- Footer component start -->
-    <footer class="footer mt-auto py-3" style="position: fixed;left: 0;bottom: 0;width: 100%;text-align: center;">
+    <footer class="footer mt-auto py-3" style="left: 0;bottom: 0;width: 100%;text-align: center;">
       <div class="container">
         <a class="navbar-brand navbar-light" href="#">Leve Games!</a><br/>
         <span class="text-muted">© 2020 Leve Games! Todos os direitos reservados.</span>

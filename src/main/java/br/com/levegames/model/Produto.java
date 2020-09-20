@@ -8,7 +8,7 @@ public class Produto {
     private String descricao_detalhada;
     private float preco;
     private int qtde;
-    private boolean ativo;
+    private boolean disponivel_venda;
     private int console_id;
 
     public Produto() {}
@@ -20,7 +20,7 @@ public class Produto {
 	this.descricao_detalhada = descricao_detalhada;
 	this.preco = preco;
 	this.qtde = qtd;
-	this.ativo = ativo;
+	this.disponivel_venda = ativo;
 	this.console_id = console_id;
     }
 
@@ -30,7 +30,7 @@ public class Produto {
 	this.descricao_detalhada = descricao_detalhada;
 	this.preco = preco;
 	this.qtde = qtd;
-	this.ativo = ativo;
+	this.disponivel_venda = ativo;
 	this.console_id = console_id;
     }
 
@@ -82,12 +82,12 @@ public class Produto {
 	this.qtde = qtd;
     }
 
-    public boolean isAtivo() {
-	return ativo;
+    public boolean isDisponivel_venda() {
+	return disponivel_venda;
     }
 
-    public void setAtivo(boolean ativo) {
-	this.ativo = ativo;
+    public void setDisponivel_venda(boolean disponivel_venda) {
+	this.disponivel_venda = disponivel_venda;
     }
 
     public int getConsole_id() {
@@ -100,7 +100,7 @@ public class Produto {
 
     @Override
     public String toString() {
-	return "Produto{" + "id=" + id + ", nome=" + nome + ", descricao_curta=" + descricao_curta + ", descricao_detalhada=" + descricao_detalhada + ", preco=" + preco + ", qtd=" + qtde + ", ativo=" + ativo + ", console_id=" + console_id + '}';
+	return "Produto{" + "id=" + id + ", nome=" + nome + ", descricao_curta=" + descricao_curta + ", descricao_detalhada=" + descricao_detalhada + ", preco=" + preco + ", qtd=" + qtde + ", ativo=" + disponivel_venda + ", console_id=" + console_id + '}';
     }
     
 }
