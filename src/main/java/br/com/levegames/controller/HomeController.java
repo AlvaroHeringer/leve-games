@@ -15,4 +15,10 @@ public class HomeController {
 	return mv;
     }
     
+    @GetMapping("/")
+    public ModelAndView exibirHome() {
+		
+	return mostrarTela();
+    }
+    
 }
