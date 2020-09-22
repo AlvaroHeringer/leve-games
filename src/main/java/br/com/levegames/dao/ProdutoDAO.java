@@ -85,4 +85,26 @@ public class ProdutoDAO {
     }
   }
 
+  public int getUltimoProduto() {
+    Connection con = ConexaoDB.obterConexao();
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+    int produto_id = 0;
+
+    try {
+      stmt = con.prepareStatement("SELECT MAX(id) as id FROM PRODUTOS;");
+      rs = stmt.executeQuery();
+
+      while (rs.next()) {
+        produto_id = rs.getInt("id");
+
+      }
+    } catch (SQLException ex) {
+      Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+    } finally {
+      ConexaoDB.fecharConexao(con, stmt, rs);
+    }
+    return produto_id;
+  }
+
 }

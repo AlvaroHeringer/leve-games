@@ -1,6 +1,7 @@
 package br.com.levegames.controller;
 
 import br.com.levegames.dao.ConsoleDAO;
+import br.com.levegames.dao.ImagemProdutoDAO;
 import br.com.levegames.dao.ProdutoDAO;
 import br.com.levegames.model.Console;
 import br.com.levegames.model.Produto;
@@ -48,11 +49,17 @@ public class ProdutoController {
   }
 
   @PostMapping("/Backoffice/Produtos/Novo")
-  public ModelAndView adicionarProduto(@ModelAttribute(value="produto") Produto p) {
+  public ModelAndView adicionarProduto(
+          @ModelAttribute(value="produto") Produto p,
+          @RequestParam("imagem") String[] imagens) {
     
     ProdutoDAO produtoDao = new ProdutoDAO();
     produtoDao.salvarProduto(p);
     
+    int produto_id = produtoDao.getUltimoProduto();
+    
+    ImagemProdutoDAO imagemProdutoDao = new ImagemProdutoDAO();
+    imagemProdutoDao.salvarImagensProduto(produto_id, imagens);
     
     ModelAndView mv = new ModelAndView("backoffice-home");
     
