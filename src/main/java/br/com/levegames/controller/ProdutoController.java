@@ -81,9 +81,9 @@ public class ProdutoController {
   public ModelAndView alterarProduto(
           @PathVariable("id") int id,
           @ModelAttribute(value = "produto") Produto p,
-          @RequestParam("imagem") String[] imagens,
-          @RequestParam("pergunta") String[] perguntas,
-          @RequestParam("resposta") String[] respostas) {
+          @RequestParam(value = "imagem", required = false) String[] imagens,
+          @RequestParam(value = "pergunta", required = false) String[] perguntas,
+          @RequestParam(value = "resposta", required = false) String[] respostas) {
 
     ProdutoDAO produtoDao = new ProdutoDAO();
     produtoDao.alterarProduto(p);
@@ -94,8 +94,8 @@ public class ProdutoController {
     PerguntaRespostaProdutoDAO perguntasRespostasProdutoDao = new PerguntaRespostaProdutoDAO();
     perguntasRespostasProdutoDao.deletarPerguntasRespostasProduto(p.getId());
 
-    imagemProdutoDao.salvarImagensProduto(p.getId(), imagens);
-    perguntasRespostasProdutoDao.salvarPerguntasRespostasProduto(p.getId(), perguntas, respostas);
+    if (imagens != null) imagemProdutoDao.salvarImagensProduto(p.getId(), imagens);
+    if (perguntas !=  null && respostas != null) perguntasRespostasProdutoDao.salvarPerguntasRespostasProduto(p.getId(), perguntas, respostas);
 
     ModelAndView mv = new ModelAndView("backoffice-home");
 

@@ -67,8 +67,9 @@ public class ImagemProdutoDAO {
     ResultSet rs = null;
 
     try {
-      stmt = con.prepareStatement("DELETE * FROM imagens_produto where produto_id = " + produto_id);
-      rs = stmt.executeQuery();
+      stmt = con.prepareStatement("DELETE FROM imagens_produto where produto_id = ?;");
+      stmt.setInt(1, produto_id);
+      stmt.executeUpdate();
     } catch (SQLException ex) {
       Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
     } finally {
