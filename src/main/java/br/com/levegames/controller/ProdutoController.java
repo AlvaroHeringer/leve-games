@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -40,85 +41,87 @@ public class ProdutoController {
   public ModelAndView exibirCadastro() {
 
     Produto p = new Produto();
-   
+
     ConsoleDAO consoleDao = new ConsoleDAO();
     List<Console> consoles = consoleDao.getConsoles();
-    
+
     ModelAndView mv = new ModelAndView("backoffice-produtos-novo");
-    
+
     mv.addObject("consoles", consoles);
     mv.addObject("produto", p);
 
     return mv;
   }
-  
+
   @GetMapping("/Backoffice/Produtos/{id}")
   public ModelAndView exibirAlterarProduto(@PathVariable("id") int id) {
 
     ModelAndView mv = new ModelAndView("backoffice-produtos-alterar");
     ProdutoDAO produtoDao = new ProdutoDAO();
     Produto p = produtoDao.getProdutos(id);
-    
+
     ConsoleDAO consoleDao = new ConsoleDAO();
     List<Console> consoles = consoleDao.getConsoles();
-    
+
     ImagemProdutoDAO imagensProdutoDAO = new ImagemProdutoDAO();
     List<ImagemProduto> listaImagens = imagensProdutoDAO.getImagensProduto(id);
-    
+
     PerguntaRespostaProdutoDAO perguntasRespostasProdutoDAO = new PerguntaRespostaProdutoDAO();
     List<PerguntaRespostaProduto> listaPerguntasRespostas = perguntasRespostasProdutoDAO.getPerguntasRespostasProduto(id);
-    
+
     mv.addObject("produto", p);
     mv.addObject("listaImagens", listaImagens);
     mv.addObject("listaPerguntasRespostas", listaPerguntasRespostas);
     mv.addObject("consoles", consoles);
-    
+
     return mv;
   }
-  
+
   @PutMapping("/Backoffice/Produtos/{id}")
   public ModelAndView alterarProduto(
-          @ModelAttribute(value="produto") Produto p,
+          @PathVariable("id") int id,
+          @ModelAttribute(value = "produto") Produto p,
           @RequestParam("imagem") String[] imagens,
           @RequestParam("pergunta") String[] perguntas,
           @RequestParam("resposta") String[] respostas) {
-    
+
     ProdutoDAO produtoDao = new ProdutoDAO();
     produtoDao.alterarProduto(p);
-    
-    int produto_id = produtoDao.getUltimoProduto();
-    
+
     ImagemProdutoDAO imagemProdutoDao = new ImagemProdutoDAO();
-    imagemProdutoDao.salvarImagensProduto(produto_id, imagens);
-    
+    imagemProdutoDao.deletarImagensProduto(p.getId());
+
     PerguntaRespostaProdutoDAO perguntasRespostasProdutoDao = new PerguntaRespostaProdutoDAO();
-    perguntasRespostasProdutoDao.salvarPerguntasRespostasProduto(produto_id, perguntas, respostas);
-    
+    perguntasRespostasProdutoDao.deletarPerguntasRespostasProduto(p.getId());
+
+    imagemProdutoDao.salvarImagensProduto(p.getId(), imagens);
+    perguntasRespostasProdutoDao.salvarPerguntasRespostasProduto(p.getId(), perguntas, respostas);
+
     ModelAndView mv = new ModelAndView("backoffice-home");
-    
+
     return mv;
   }
 
   @PostMapping("/Backoffice/Produtos/Novo")
   public ModelAndView adicionarProduto(
-          @ModelAttribute(value="produto") Produto p,
+          @ModelAttribute(value = "produto") Produto p,
           @RequestParam("imagem") String[] imagens,
           @RequestParam("pergunta") String[] perguntas,
           @RequestParam("resposta") String[] respostas) {
-    
+
     ProdutoDAO produtoDao = new ProdutoDAO();
     produtoDao.salvarProduto(p);
-    
+
     int produto_id = produtoDao.getUltimoProduto();
-    
+
     ImagemProdutoDAO imagemProdutoDao = new ImagemProdutoDAO();
     imagemProdutoDao.salvarImagensProduto(produto_id, imagens);
-    
+
     PerguntaRespostaProdutoDAO perguntasRespostasProdutoDao = new PerguntaRespostaProdutoDAO();
     perguntasRespostasProdutoDao.salvarPerguntasRespostasProduto(produto_id, perguntas, respostas);
-    
+
     ModelAndView mv = new ModelAndView("backoffice-home");
-    
+
     return mv;
   }
 
@@ -131,7 +134,7 @@ public class ProdutoController {
     ModelAndView mv = new ModelAndView("backoffice-produtos");
 
     return mv;
-    
+
   }
 
 }

@@ -136,4 +136,27 @@ public class ProdutoDAO {
     return p;
   }
 
+  public void alterarProduto(Produto p) {
+    Connection con = ConexaoDB.obterConexao();
+    PreparedStatement stmt = null;
+
+    try {
+      stmt = con.prepareStatement("update produtos set nome = ?, descricao_curta = ?, descricao_detalhada = ?, preco = ?, qtde = ?, disponivel_venda = ?, console_id = ? where id = ?;");
+
+      stmt.setString(1, p.getNome());
+      stmt.setString(2, p.getDescricao_curta());
+      stmt.setString(3, p.getDescricao_detalhada());
+      stmt.setFloat(4, p.getPreco());
+      stmt.setInt(5, p.getQtde());
+      stmt.setBoolean(6, p.isDisponivel_venda());
+      stmt.setInt(7, p.getConsole_id());
+      stmt.setInt(8, p.getId());
+      stmt.executeUpdate();
+    } catch (SQLException ex) {
+      Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+    } finally {
+      ConexaoDB.fecharConexao(con, stmt);
+    }
+  }
+
 }

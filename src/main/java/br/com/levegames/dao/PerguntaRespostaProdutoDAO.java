@@ -58,4 +58,19 @@ public class PerguntaRespostaProdutoDAO {
     return listaPerguntasRespostas;
   }
 
+  public void deletarPerguntasRespostasProduto(int produto_id) {
+    Connection con = ConexaoDB.obterConexao();
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+
+    try {
+      stmt = con.prepareStatement("DELETE * FROM perguntas_respostas_produto where produto_id = " + produto_id);
+      rs = stmt.executeQuery();
+    } catch (SQLException ex) {
+      Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+    } finally {
+      ConexaoDB.fecharConexao(con, stmt, rs);
+    }
+  }
+
 }

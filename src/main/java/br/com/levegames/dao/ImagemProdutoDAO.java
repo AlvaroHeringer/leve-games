@@ -57,4 +57,23 @@ public class ImagemProdutoDAO {
     return listaImagens;
   }
 
+  public void alterarImagensProduto(int produto_id) {
+    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  }
+
+  public void deletarImagensProduto(int produto_id) {
+    Connection con = ConexaoDB.obterConexao();
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+
+    try {
+      stmt = con.prepareStatement("DELETE * FROM imagens_produto where produto_id = " + produto_id);
+      rs = stmt.executeQuery();
+    } catch (SQLException ex) {
+      Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+    } finally {
+      ConexaoDB.fecharConexao(con, stmt, rs);
+    }
+  }
+
 }
