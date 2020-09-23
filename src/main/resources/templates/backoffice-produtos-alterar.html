@@ -40,8 +40,8 @@
     <!-- Menu component end -->
     <main>
       <div class="container">
-        <h1 class="display-4" style="margin-top: 3rem">Novo Produto</h1>
-        <form action="#" th:action="@{/Backoffice/Produtos/Novo}" th:object="${produto}" method='POST'>
+        <h1 class="display-4" style="margin-top: 3rem">Alterar Produto</h1>
+        <form action="#" th:action="@{/Backoffice/Produtos/produto.id}" th:object="${produto}" method='PUT'>
           <div class="form-group">
             <label for="text">Título:</label>
             <input type="text" class="form-control w-50" placeholder="Digite o título" th:field="*{nome}" id="nome">
@@ -86,20 +86,10 @@
           <div class="form-group">
 
             <label for="text">Imagens do produto:</label>
-            <ul class="list-group" id="lista-imagens">
+            <ul class="list-group" id="lista-imagens" th:each="imagem: ${listaImagens}">
               <li class="list-group-item d-flex justify-content-between align-items-center">
-                teste.jpg
-                <input name="imagem" type="hidden" value="teste.jpg">
-                <button type="button" class="btn btn-danger sm" onclick="$(this).closest('li').remove();">Remover</button>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                teste2.jpg
-                <input name="imagem" type="hidden" value="teste2.jpg">
-                <button type="button" class="btn btn-danger sm" onclick="$(this).closest('li').remove();">Remover</button>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                teste3.jpg
-                <input name="imagem" type="hidden" value="teste3.jpg">
+                <p th:text="${imagem.url_imagem}"></p>
+                <input name="imagem" type="hidden" th:value="${imagem.url_imagem}">
                 <button type="button" class="btn btn-danger sm" onclick="$(this).closest('li').remove();">Remover</button>
               </li>
             </ul>
@@ -143,13 +133,13 @@
           <div class="form-group" style="margin-top: 2rem">
 
             <label for="text">Perguntas & Respostas do produto:</label>
-            <ul class="list-group-flush" id="lista-pr" style="padding-left: 0px">
+            <ul class="list-group-flush" id="lista-pr" style="padding-left: 0px" th:each="perguntaResposta: ${listaPerguntasRespostas}">
               <li class="list-group-item d-flex justify-content-between align-items-center" style="padding-left: 0px">
                 <div>
-                  <p class="font-weight-normal">Pergunta: Esse produto vem com todas as dlcs?</p>
-                  <input name="pergunta" type="hidden" value="Pergunta: Esse produto vem com todas as dlcs?">
-                  <p class="font-weight-light" name="resposta">Resposta: Não. É apenas o jogo base.</p>
-                  <input name="resposta" type="hidden" value="Resposta: Não. É apenas o jogo base.">
+                  <p class="font-weight-normal" name="pergunta" th:text="${perguntaResposta.pergunta}">Pergunta: Esse produto vem com todas as dlcs?</p>
+                  <input name="pergunta" type="hidden" th:value="${perguntaResposta.pergunta}">
+                  <p class="font-weight-light" name="resposta" th:text="${perguntaResposta.resposta}">Resposta: Não. É apenas o jogo base.</p>
+                  <input name="resposta" type="hidden" th:value="${perguntaResposta.resposta}">
                 </div>
                 <button type="button" class="btn btn-danger sm" onclick="$(this).closest('li').remove();">Remover</button>
               </li>
@@ -196,8 +186,8 @@
           <hr>
           
           <div class="form-group">
-            <button type="submit" value="submit" class="btn btn-success">Cadastrar</button>
-            <button class="btn btn-info" type="reset" value="Reset" onclick="const myNode = document.getElementById('lista-imagens');myNode.innerHTML = ''; const myNode2 = document.getElementById('lista-pr');myNode2.innerHTML = '';">Resetar</button>
+            <button type="submit" value="submit" class="btn btn-success">Atualizar</button>
+            
 
         </form>
       </div>

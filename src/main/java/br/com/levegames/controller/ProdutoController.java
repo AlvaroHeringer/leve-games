@@ -5,6 +5,8 @@ import br.com.levegames.dao.ImagemProdutoDAO;
 import br.com.levegames.dao.PerguntaRespostaProdutoDAO;
 import br.com.levegames.dao.ProdutoDAO;
 import br.com.levegames.model.Console;
+import br.com.levegames.model.ImagemProduto;
+import br.com.levegames.model.PerguntaRespostaProduto;
 import br.com.levegames.model.Produto;
 import java.util.logging.Logger;
 import java.util.List;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,6 +49,53 @@ public class ProdutoController {
     mv.addObject("consoles", consoles);
     mv.addObject("produto", p);
 
+    return mv;
+  }
+  
+  @GetMapping("/Backoffice/Produtos/{id}")
+  public ModelAndView exibirAlterarProduto(@PathVariable("id") int id) {
+
+    ModelAndView mv = new ModelAndView("backoffice-produtos-alterar");
+    ProdutoDAO produtoDao = new ProdutoDAO();
+    Produto p = produtoDao.getProdutos(id);
+    
+    ConsoleDAO consoleDao = new ConsoleDAO();
+    List<Console> consoles = consoleDao.getConsoles();
+    
+    ImagemProdutoDAO imagensProdutoDAO = new ImagemProdutoDAO();
+    List<ImagemProduto> listaImagens = imagensProdutoDAO.getImagensProduto(id);
+    
+    PerguntaRespostaProdutoDAO perguntasRespostasProdutoDAO = new PerguntaRespostaProdutoDAO();
+    List<PerguntaRespostaProduto> listaPerguntasRespostas = perguntasRespostasProdutoDAO.getPerguntasRespostasProduto(id);
+    
+    mv.addObject("produto", p);
+    mv.addObject("listaImagens", listaImagens);
+    mv.addObject("listaPerguntasRespostas", listaPerguntasRespostas);
+    mv.addObject("consoles", consoles);
+    
+    return mv;
+  }
+  
+  @PutMapping("/Backoffice/Produtos/{id}")
+  public ModelAndView alterarProduto(
+          @ModelAttribute(value="produto") Produto p,
+          @RequestParam("imagem") String[] imagens,
+          @RequestParam("pergunta") String[] perguntas,
+          @RequestParam("resposta") String[] respostas) {
+    
+    ProdutoDAO produtoDao = new ProdutoDAO();
+    produtoDao.alterarProduto(p);
+    
+    int produto_id = produtoDao.getUltimoProduto();
+    
+    ImagemProdutoDAO imagemProdutoDao = new ImagemProdutoDAO();
+    imagemProdutoDao.salvarImagensProduto(produto_id, imagens);
+    
+    PerguntaRespostaProdutoDAO perguntasRespostasProdutoDao = new PerguntaRespostaProdutoDAO();
+    perguntasRespostasProdutoDao.salvarPerguntasRespostasProduto(produto_id, perguntas, respostas);
+    
+    ModelAndView mv = new ModelAndView("backoffice-home");
+    
     return mv;
   }
 

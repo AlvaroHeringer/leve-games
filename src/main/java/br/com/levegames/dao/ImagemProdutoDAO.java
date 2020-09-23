@@ -1,5 +1,6 @@
 package br.com.levegames.dao;
 
+import br.com.levegames.model.ImagemProduto;
 import br.com.levegames.model.Produto;
 import br.com.levegames.utils.ConexaoDB;
 import java.sql.Connection;
@@ -28,6 +29,32 @@ public class ImagemProdutoDAO {
     } finally {
       ConexaoDB.fecharConexao(con, stmt);
     }
+  }
+
+  public List<ImagemProduto> getImagensProduto(int produto_id) {
+    Connection con = ConexaoDB.obterConexao();
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+
+    List<ImagemProduto> listaImagens = new ArrayList<>();
+
+    try {
+      stmt = con.prepareStatement("SELECT * FROM imagens_produto where produto_id = " + produto_id);
+      rs = stmt.executeQuery();
+
+      while (rs.next()) {
+        ImagemProduto i = new ImagemProduto();
+        i.setId(rs.getInt("id"));
+        i.setProduto_id(produto_id);
+        i.setUrl_imagem(rs.getString("url_imagem"));
+        listaImagens.add(i);
+      }
+    } catch (SQLException ex) {
+      Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+    } finally {
+      ConexaoDB.fecharConexao(con, stmt, rs);
+    }
+    return listaImagens;
   }
 
 }
