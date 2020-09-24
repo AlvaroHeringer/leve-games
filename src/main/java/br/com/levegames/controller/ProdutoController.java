@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Set;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -97,7 +98,7 @@ public class ProdutoController {
     if (imagens != null) imagemProdutoDao.salvarImagensProduto(p.getId(), imagens);
     if (perguntas !=  null && respostas != null) perguntasRespostasProdutoDao.salvarPerguntasRespostasProduto(p.getId(), perguntas, respostas);
 
-    ModelAndView mv = new ModelAndView("backoffice-home");
+    ModelAndView mv = new ModelAndView("redirect:/Backoffice/Produtos");
 
     return mv;
   }
@@ -105,9 +106,9 @@ public class ProdutoController {
   @PostMapping("/Backoffice/Produtos/Novo")
   public ModelAndView adicionarProduto(
           @ModelAttribute(value = "produto") Produto p,
-          @RequestParam("imagem") String[] imagens,
-          @RequestParam("pergunta") String[] perguntas,
-          @RequestParam("resposta") String[] respostas) {
+          @RequestParam(value = "imagem", required = false) String[] imagens,
+          @RequestParam(value = "pergunta", required = false) String[] perguntas,
+          @RequestParam(value = "resposta", required = false) String[] respostas) {
 
     ProdutoDAO produtoDao = new ProdutoDAO();
     produtoDao.salvarProduto(p);
@@ -115,23 +116,23 @@ public class ProdutoController {
     int produto_id = produtoDao.getUltimoProduto();
 
     ImagemProdutoDAO imagemProdutoDao = new ImagemProdutoDAO();
-    imagemProdutoDao.salvarImagensProduto(produto_id, imagens);
-
     PerguntaRespostaProdutoDAO perguntasRespostasProdutoDao = new PerguntaRespostaProdutoDAO();
-    perguntasRespostasProdutoDao.salvarPerguntasRespostasProduto(produto_id, perguntas, respostas);
+    
+    if (imagens != null) imagemProdutoDao.salvarImagensProduto(produto_id, imagens);
+    if (perguntas !=  null && respostas != null) perguntasRespostasProdutoDao.salvarPerguntasRespostasProduto(produto_id, perguntas, respostas);
 
-    ModelAndView mv = new ModelAndView("backoffice-home");
+    ModelAndView mv = new ModelAndView("redirect:/Backoffice/Produtos");
 
     return mv;
   }
 
-  @GetMapping("/Backoffice/Produtos/Delete/{id}")
-  public ModelAndView removeProduto(@PathVariable("id") long id) {
+  @DeleteMapping("/Backoffice/Produtos/{id}")
+  public ModelAndView removeProduto(@PathVariable("id") int id) {
 
     ProdutoDAO produtoDao = new ProdutoDAO();
     produtoDao.removeProduto(id);
 
-    ModelAndView mv = new ModelAndView("backoffice-produtos");
+    ModelAndView mv = new ModelAndView("redirect:/Backoffice/Produtos");
 
     return mv;
 

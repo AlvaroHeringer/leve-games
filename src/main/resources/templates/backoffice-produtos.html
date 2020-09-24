@@ -43,27 +43,35 @@
         <br>
         <table class="table table-borderless">
           <thead class="bg-light">
-          <tr>
-            <th class="text-center">ID</th>
-            <th class="text-center">Nome</th>
-            <th class="text-center">Status</th>
-            <th class="text-center">Qtde</th>
-            <th class="text-center" colspan="2">Ação</th>
-          </tr>
+            <tr>
+              <th class="text-center">ID</th>
+              <th class="text-center">Nome</th>
+              <th class="text-center">Status</th>
+              <th class="text-center">Qtde</th>
+              <th class="text-center" colspan="2">Ação</th>
+            </tr>
           </thead>
           <tr th:each="game: ${games}">
             <td class="text-center" th:text="${game.id}" />
             <td class="text-center" th:text="${game.nome}" />
             <td class="text-center" th:text="${game.disponivel_venda}" />
             <td class="text-center" th:text="${game.qtde}" />
-            <td class="text-center"><a class="btn btn-outline-info btn-sm" th:href="${'/Backoffice/Produtos/' + game.id}">Atualizar</a></td>
-            <td class="text-center"><a class="btn btn-outline-danger btn-sm" th:href="${'/Backoffice/Produtos/Delete/' + game.id}">Excluir</a></td>
+            <td class="text-center">
+              <form action="#" th:action="@{/Backoffice/Produtos/} + ${game.id}" th:method="get">
+                <button class="btn btn-outline-info btn-sm" type="submit" value="submit">Atualizar</button>
+              </form>
+            </td>
+            <td class="text-center">
+              <form action="#" th:action="${'/Backoffice/Produtos/' + game.id}" th:method="delete">
+                <button class="btn btn-outline-danger btn-sm" type="submit" value="submit">Excluir</button>
+              </form>
+            </td>
           </tr>
         </table>
         <div style="text-align: right">
           <a href="/Backoffice/Produtos/Novo" class="btn btn-success" >Adicionar Produto</a>
-          </div>
-        
+        </div>
+
       </div>
     </main>
     <!-- Footer component start -->

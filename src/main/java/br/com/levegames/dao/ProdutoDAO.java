@@ -22,7 +22,7 @@ public class ProdutoDAO {
     List<Produto> produtos = new ArrayList<>();
 
     try {
-      stmt = con.prepareStatement("SELECT * FROM PRODUTOS;");
+      stmt = con.prepareStatement("SELECT * FROM PRODUTOS where registro_deletado = false;");
       rs = stmt.executeQuery();
 
       while (rs.next()) {
@@ -45,14 +45,14 @@ public class ProdutoDAO {
     return produtos;
   }
 
-  public void removeProduto(long id) {
+  public void removeProduto(int id) {
     Connection con = ConexaoDB.obterConexao();
     PreparedStatement stmt = null;
 
     try {
-      stmt = con.prepareStatement("update produtos set registro_deletado = false where id = ?");
+      stmt = con.prepareStatement("update produtos set registro_deletado = true where id = ?");
 
-      stmt.setLong(1, id);
+      stmt.setInt(1, id);
 
       stmt.executeUpdate();
     } catch (SQLException ex) {
@@ -67,7 +67,7 @@ public class ProdutoDAO {
     PreparedStatement stmt = null;
 
     try {
-      stmt = con.prepareStatement("insert into produtos (nome,descricao_curta,descricao_detalhada,preco,qtde,disponivel_venda,console_id) values ( ?, ?, ?, ?, ?, ?, ?);");
+      stmt = con.prepareStatement("insert into produtos (nome,descricao_curta,descricao_detalhada,preco,qtde,disponivel_venda,console_id, registro_deletado) values ( ?, ?, ?, ?, ?, ?, ?, false);");
 
       stmt.setString(1, p.getNome());
       stmt.setString(2, p.getDescricao_curta());

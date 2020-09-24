@@ -33,3 +33,7 @@ function addPR() {
   document.getElementById('pergunta').value='';
    document.getElementById('resposta').value='';
 }
+
+function visualizarProduto(){
+  
+}
