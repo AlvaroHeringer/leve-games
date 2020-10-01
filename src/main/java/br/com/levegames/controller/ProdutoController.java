@@ -77,6 +77,30 @@ public class ProdutoController {
 
     return mv;
   }
+  
+  @GetMapping("/Backoffice/Produtos/Visualizar/{id}")
+  public ModelAndView verProduto(@PathVariable("id") int id) {
+
+    ModelAndView mv = new ModelAndView("backoffice-produtos-visualizar");
+    ProdutoDAO produtoDao = new ProdutoDAO();
+    Produto p = produtoDao.getProdutos(id);
+
+    ConsoleDAO consoleDao = new ConsoleDAO();
+    Console console = consoleDao.getConsolePorId(p.getConsole_id());
+
+    ImagemProdutoDAO imagensProdutoDAO = new ImagemProdutoDAO();
+    List<ImagemProduto> listaImagens = imagensProdutoDAO.getImagensProduto(id);
+
+    PerguntaRespostaProdutoDAO perguntasRespostasProdutoDAO = new PerguntaRespostaProdutoDAO();
+    List<PerguntaRespostaProduto> listaPerguntasRespostas = perguntasRespostasProdutoDAO.getPerguntasRespostasProduto(id);
+
+    mv.addObject("produto", p);
+    mv.addObject("listaImagens", listaImagens);
+    mv.addObject("listaPerguntasRespostas", listaPerguntasRespostas);
+    mv.addObject("console", console);
+
+    return mv;
+  }
 
   @PutMapping("/Backoffice/Produtos/{id}")
   public ModelAndView alterarProduto(

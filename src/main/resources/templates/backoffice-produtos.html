@@ -48,7 +48,7 @@
               <th class="text-center">Nome</th>
               <th class="text-center">Status</th>
               <th class="text-center">Qtde</th>
-              <th class="text-center" colspan="2">Ação</th>
+              <th class="text-center" colspan="3">Ação</th>
             </tr>
           </thead>
           <tr th:each="game: ${games}">
@@ -59,6 +59,11 @@
             <td class="text-center">
               <form action="#" th:action="@{/Backoffice/Produtos/} + ${game.id}" th:method="get">
                 <button class="btn btn-outline-info btn-sm" type="submit" value="submit">Atualizar</button>
+              </form>
+            </td>
+            <td class="text-center">
+              <form action="#" th:action="@{/Backoffice/Produtos/Visualizar/} + ${game.id}" th:method="get">
+                <button class="btn btn-outline-info btn-sm" type="submit" value="submit">Visualizar</button>
               </form>
             </td>
             <td class="text-center">

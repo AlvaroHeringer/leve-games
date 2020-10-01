@@ -39,4 +39,27 @@ public class ConsoleDAO {
     return consoles;
   }
 
+  public Console getConsolePorId(int console_id) {
+
+    Connection con = ConexaoDB.obterConexao();
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+
+    Console console = new Console();
+
+    try {
+      stmt = con.prepareStatement("SELECT * FROM CONSOLES where id = " + console_id);
+      rs = stmt.executeQuery();
+      rs.next();
+      console.setId(rs.getInt("id"));
+      console.setNome(rs.getString("nome"));
+
+    } catch (SQLException ex) {
+      Logger.getLogger(ConsoleDAO.class.getName()).log(Level.SEVERE, null, ex);
+    } finally {
+      ConexaoDB.fecharConexao(con, stmt, rs);
+    }
+    return console;
+  }
+
 }
