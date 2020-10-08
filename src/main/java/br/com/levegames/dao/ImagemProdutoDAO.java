@@ -77,4 +77,30 @@ public class ImagemProdutoDAO {
     }
   }
 
+  public List<ImagemProduto> getFirstImagensProduto() {
+    Connection con = ConexaoDB.obterConexao();
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+
+    List<ImagemProduto> listaImagens = new ArrayList<>();
+      
+    try {
+      stmt = con.prepareStatement("select imagens_produto.* from imagens_produto inner join produtos on (imagens_produto.produto_id = produtos.id) where produtos.registro_deletado = false and produtos.disponivel_venda = true group by imagens_produto.produto_id;");
+      rs = stmt.executeQuery();
+
+      while (rs.next()) {
+        ImagemProduto i = new ImagemProduto();
+        i.setId(rs.getInt("id"));
+        i.setProduto_id(rs.getInt("produto_id"));
+        i.setUrl_imagem(rs.getString("url_imagem"));
+        listaImagens.add(i);
+      }
+    } catch (SQLException ex) {
+      Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+    } finally {
+      ConexaoDB.fecharConexao(con, stmt, rs);
+    }
+    return listaImagens;
+  }
+
 }

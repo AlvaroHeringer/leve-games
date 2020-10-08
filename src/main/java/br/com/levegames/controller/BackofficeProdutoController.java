@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class ProdutoController {
+public class BackofficeProdutoController {
 
   @GetMapping("/Backoffice/Produtos")
   public ModelAndView mostrarTela() {

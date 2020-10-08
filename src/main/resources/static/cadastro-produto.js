@@ -7,7 +7,7 @@ function addImage() {
                 `<input name="imagem" type="hidden" value="` + url + `"><button type="button" class="btn btn-danger sm" onclick="$(this).closest('li').remove();">Remover</button>
               </li>`;
 
-  lista.insertAdjacentHTML("afterbegin", s);
+  lista.insertAdjacentHTML("beforeend", s);
   
   document.getElementById('url_imagem').value='';
   
@@ -28,7 +28,7 @@ function addPR() {
                 <button type="button" class="btn btn-danger sm" onclick="$(this).closest('li').remove();">Remover</button>
               </li>`;
 
-  lista.insertAdjacentHTML("afterbegin", s);
+  lista.insertAdjacentHTML("beforeend", s);
   
   document.getElementById('pergunta').value='';
    document.getElementById('resposta').value='';

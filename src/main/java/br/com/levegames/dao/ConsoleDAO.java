@@ -62,4 +62,29 @@ public class ConsoleDAO {
     return console;
   }
 
+  public List<Console> getConsolesOrdenado() {
+    Connection con = ConexaoDB.obterConexao();
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+
+    List<Console> listaConsoles = new ArrayList<>();
+      
+    try {
+      stmt = con.prepareStatement("select consoles.* from consoles inner join produtos on (consoles.id = produtos.console_id) where produtos.registro_deletado = false and produtos.disponivel_venda = true order by produtos.id;");
+      rs = stmt.executeQuery();
+
+      while (rs.next()) {
+        Console c = new Console();
+        c.setId(rs.getInt("id"));
+        c.setNome(rs.getString("nome"));
+        listaConsoles.add(c);
+      }
+    } catch (SQLException ex) {
+      Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+    } finally {
+      ConexaoDB.fecharConexao(con, stmt, rs);
+    }
+    return listaConsoles;
+  }
+
 }
