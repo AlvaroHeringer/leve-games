@@ -1,7 +1,7 @@
 <!doctype html>
 <html class="h-100">
   <head>
-    <title>Tela 2 sem layout</title>
+    <title>Leve Games! Home</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -68,7 +68,7 @@
             <a class="nav-link" href="#">HOME <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">PS4</a>
+            <a class="nav-link" href="/Home?console=PS4">PS4</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">XBOX ONE</a>
@@ -104,18 +104,19 @@
         </div>
       </div>
 
-      <div class="container" style="grid-template-columns: auto auto auto auto; display: grid;">
-        <!-- Example row of columns -->
-        <div th:each="produto, index : ${produtos}" class="card-item" style="padding: 1rem">
-          <center>
-            <a th:href="@{/Backoffice/Produtos/Visualizar/} + ${produto.id}" th:text="${produto.nome}">Zelda Breath of the Wild</a>
-            <p th:text="${consoles[index.index].nome}">SWITCH</p>
-            <img th:src="${imagens[index.index].url_imagem}" style="padding: 1rem">
-            <p style="font-size: 30px" th:text="'R$ ' + ${produto.preco}">R$ 350,00</p>
-            <p><a class="btn btn-info" href="#" role="button">Comprar   &raquo;</a></p>
-          </center>
+      <div class="container">
+        <div class="row">
+          <!-- Example row of columns -->
+          <div th:each="produto, index : ${produtos}" class="col-md-4" style="padding: 1rem">
+            <center>
+              <a th:href="@{/Backoffice/Produtos/Visualizar/} + ${produto.id}" th:text="${produto.nome}">Zelda Breath of the Wild</a>
+              <p th:text="${consoles[index.index].nome}">SWITCH</p>
+              <img th:src="${imagens[index.index].url_imagem}" style="padding: 1rem">
+              <p style="font-size: 30px" th:text="'R$ ' + ${produto.preco}">R$ 350,00</p>
+              <p><a class="btn btn-info" href="#" role="button">Comprar   &raquo;</a></p>
+            </center>
+          </div>
         </div>
-
       </div>
       <hr>
 

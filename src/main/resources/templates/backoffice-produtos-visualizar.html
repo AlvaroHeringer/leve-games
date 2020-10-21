@@ -6,6 +6,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="/cadastro-produto.js"></script>
     <title>Leve Games! Lista de Produtos</title>
+    <style>
+      /* Show navbar not fixed to the top */
+      /*
+      body {
+          min-height: 75rem;
+      }
+      */
+      /* sticky footer css */
+      main > .container {
+        padding: 60px 15px 0;
+      }
+      .footer {
+        background-color: #f5f5f5;
+      }
+      .footer > .container {
+        padding-right: 15px;
+        padding-left: 15px;
+      }
+      code {
+        font-size: 80%;
+      }
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+        .container {
+          grid-template-columns: auto;
+        }
+      }
+    </style>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -49,12 +87,12 @@
 
         <h1 class="display-4" style="margin-top: 3rem; margin-bottom: 2rem">Detalhes do Produto</h1>
         <div class="row">
-          <div class="col">
+          <div class="col" style="width: 200px; height: 500px">
             <div id="carouselExampleControls" class="carousel slide" data-ride="carousel"  style="height: 450px !important; width: 450px !important;">
               <div class="carousel-inner" >
 
                 <div th:each="imagem, iterstat : ${listaImagens}" th:class="${iterstat.index}== 0  ? 'carousel-item active':'carousel-item'">
-                  <img th:src="${imagem.url_imagem}" class="d-block w-100" alt="Imagem do jogo">
+                  <img th:src="${imagem.url_imagem}" class="d-block w-100" style="width: auto; height: 500px;"alt="Imagem do jogo">
 
                 </div>
 
@@ -107,7 +145,12 @@
 
     </main>
 
-
+<footer class="footer mt-auto py-3" style="position: relative;left: 0;bottom: 0;width: 100%;text-align: center;">
+      <div class="container">
+        <a class="navbar-brand navbar-light" href="#">Leve Games!</a><br/>
+        <span class="text-muted">© 2020 Leve Games! Todos os direitos reservados.</span>
+      </div>
+    </footer>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
