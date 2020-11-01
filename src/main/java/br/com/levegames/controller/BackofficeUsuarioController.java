@@ -65,13 +65,15 @@ public class BackofficeUsuarioController {
   public ModelAndView adicionarUsuario(
           @ModelAttribute(value = "usuario") Usuario u,
           @RequestParam(value = "repetir-senha", required = true) String repetirSenha) {
-    if (!repetirSenha.equals(u.getSenha()) || u.getNome().length() < 5) {
+    UsuarioDAO usuarioDao = new UsuarioDAO();
+    boolean usuarioExistente = usuarioDao.getIsUsuarioExiste(u.getEmail());
+    if (!repetirSenha.equals(u.getSenha()) || u.getNome().length() < 5 || usuarioExistente ) {
       ModelAndView mv = new ModelAndView("backoffice-usuarios-novo");
       mv.addObject("usuario", u);
       return mv;
     }
 
-    UsuarioDAO usuarioDao = new UsuarioDAO();
+    
     usuarioDao.salvarUsuario(u);
     ModelAndView mv = new ModelAndView("redirect:/Backoffice/Usuarios");
     return mv;

@@ -28,12 +28,13 @@ public class BackofficeLoginController {
           HttpServletRequest request) {
     UsuarioDAO usuarioDao = new UsuarioDAO();
     ModelAndView mv;
-    
+
     u = usuarioDao.getUsuario(u.getEmail(), u.getSenha());
-    if (u != null) {
+    if (u != null ) {
       HttpSession sessao = request.getSession();
       sessao.setAttribute("user", u);
       mv = new ModelAndView("redirect:/Backoffice/Home");
+      mv.addObject("u", u);
     } else {
       mv = new ModelAndView("backoffice-login");
       mv.addObject("usuario", new Usuario());
