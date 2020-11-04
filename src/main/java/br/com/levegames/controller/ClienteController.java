@@ -1,6 +1,9 @@
 package br.com.levegames.controller;
 
+<<<<<<< HEAD
 import br.com.levegames.dao.ClienteDAO;
+=======
+>>>>>>> 6ef9604b1c8616a08b75a97ecdb4cf797e4f90c1
 import br.com.levegames.model.Cliente;
 import java.util.logging.Logger;
 import java.util.List;
@@ -29,6 +32,7 @@ public class ClienteController {
     mv.addObject("cliente", c);
     return mv;
   }
+<<<<<<< HEAD
   
   @PostMapping("/Cliente/{id}")
   public ModelAndView exibirAlterarCliente(@PathVariable("id") int id) {
@@ -41,5 +45,7 @@ public class ClienteController {
 
     return mv;
   }
+=======
+>>>>>>> 6ef9604b1c8616a08b75a97ecdb4cf797e4f90c1
 
 }
