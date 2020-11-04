@@ -20,6 +20,9 @@
             <a class="nav-link" href="/Backoffice/Home">HOME</a>
           </li>
           <li class="nav-item active">
+            <a class="nav-link" href="/Backoffice/Usuarios">USUÁRIOS</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="/Backoffice/Produtos">PRODUTOS</a>
           </li>
           <li class="nav-item">
@@ -40,7 +43,7 @@
     <!-- Menu component end -->
     <main>
       <div class="container">
-        <h1 class="display-4" style="margin-top: 3rem">Novo Usuário</h1>
+        <h1 class="display-4" style="margin-top: 3rem">Alterar Usuário</h1>
         <form action="#" th:object="${usuario}" th:action="@{/Backoffice/Usuarios/} + ${usuario.id}" th:method="put">
           <div class="form-group">
             <label for="text">Nome:</label>

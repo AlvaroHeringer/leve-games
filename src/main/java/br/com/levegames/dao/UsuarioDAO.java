@@ -110,6 +110,33 @@ public class UsuarioDAO {
     }
     return u;
   }
+  
+  public boolean getIsUsuarioExiste(String email) {
+    Connection con = ConexaoDB.obterConexao();
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+    boolean userExiste = false;
+
+    try {
+      stmt = con.prepareStatement("select * from usuarios where email = '" + email + "';");
+      rs = stmt.executeQuery();
+
+      rs.next(); //Vá para a última linha do resultSet:
+      int rows = rs.getRow(); //Pegue o número da linha
+
+      if (rows == 1) {
+        userExiste = true;
+
+      }
+
+    } catch (SQLException ex) {
+      Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+    } finally {
+      ConexaoDB.fecharConexao(con, stmt, rs);
+    }
+    return userExiste;
+  }
+  
 
   public void alterarUsuario(Usuario u) {
     Connection con = ConexaoDB.obterConexao();

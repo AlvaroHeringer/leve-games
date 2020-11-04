@@ -14,8 +14,9 @@ public class BackofficeHomeController {
     @GetMapping("/Backoffice/Home")
     public ModelAndView mostrarTela(HttpServletRequest request) {
 		HttpSession sessao = request.getSession();
-      Object x = sessao.getAttribute("user");
+        Object x = sessao.getAttribute("user");
 	ModelAndView mv = new ModelAndView("backoffice-home");
+        mv.addObject("u", x);
 	return mv;
     }
 
