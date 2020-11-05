@@ -54,7 +54,7 @@
     <main>
       <div class="container">
         <h1 class="display-4" style="margin-top: 3rem">Novo Cliente</h1>
-        <form action="#" th:action="@{/Cliente/Novo}" th:object="${cliente}" method='POST'>
+        <form action="#" id="form" th:action="@{/Cliente/Novo}" th:object="${cliente}" method='POST'>
           <div class="form-group">
             <label for="text">Nome:</label>
             <input type="text" class="form-control" placeholder="Digite seu nome" th:field="*{nome}" id="nome">
@@ -236,7 +236,7 @@
           <hr>
 
           <div class="form-group">
-            <button type="submit" value="submit" class="btn btn-outline-success">Cadastrar</button>
+            <button type="button" id="cadastrar" class="btn btn-outline-success" onclick="validar();">Cadastrar</button>
             <button class="btn btn-outline-info" type="reset" value="Reset" onclick="const myNode = document.getElementById('lista-enderecos');myNode.innerHTML = '';">Resetar</button>
 
         </form>

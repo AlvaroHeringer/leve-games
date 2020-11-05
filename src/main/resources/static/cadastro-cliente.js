@@ -40,6 +40,22 @@ function addEndereco() {
 
 }
 
+function validar() {
+  let e = document.getElementsByClassName('is-invalid');
+  if (e.length > 0) {
+    alert("Atenção! Corrija os erros do formulário.");
+  } else if (document.getElementById('senha').value.length == 0){
+    alert("Senha em branco!")
+  }else if (document.getElementById('cpf').value.length == 0){
+    alert("CPF em branco!")
+  }else if (document.getElementById('cep_faturamento').value.length == 0){
+    alert("Preencha o endereço de faturamento!")
+  }else {
+    document.getElementById('form').submit();
+  }
+
+}
+
 function validaCPF() {
   let cpf = document.getElementById('cpf').value;
   if (!TestaCPF(cpf)) {

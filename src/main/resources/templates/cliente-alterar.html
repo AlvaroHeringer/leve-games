@@ -54,7 +54,7 @@
     <main>
       <div class="container">
         <h1 class="display-4" style="margin-top: 3rem">Meus Dados</h1>
-        <form action="#" th:action="@{/DadosPessoais}" th:object="${cliente}" method='POST'>
+        <form action="#" id="form" th:action="@{/DadosPessoais}" th:object="${cliente}" method='POST'>
           <div class="form-group">
             <label for="text">Nome:</label>
             <input type="text" class="form-control" placeholder="Digite seu nome" th:field="*{nome}" id="nome">
@@ -256,7 +256,7 @@
           <hr>
 
           <div class="form-group">
-            <button type="submit" value="submit" class="btn btn-outline-success">Alterar</button>
+            <button type="button" onclick="validar();" class="btn btn-outline-success">Alterar</button>
         </form>
       </div>
     </main>
