@@ -58,7 +58,7 @@ public class ClienteDAO {
     PreparedStatement stmt = null;
 
     try {
-      stmt = con.prepareStatement("update cliente set registro_deletado = true where id = ?");
+      stmt = con.prepareStatement("update clientes set registro_deletado = true where id = ?");
 
       stmt.setInt(1, id);
 
@@ -70,12 +70,12 @@ public class ClienteDAO {
     }
   }
     
-    public void salvarProduto(Cliente c) {
+    public void salvarCliente(Cliente c) {
     Connection con = ConexaoDB.obterConexao();
     PreparedStatement stmt = null;
 
     try {
-      stmt = con.prepareStatement("insert into cliente (nome,cpf,telefone,email,senha,registro_deletado) values ( ?, ?, ?, ?, ?, ?,  false);");
+      stmt = con.prepareStatement("insert into clientes (nome,cpf,telefone,email,senha) values ( ?, ?, ?, ?, ?);");
 
       stmt.setString(1, c.getNome());
       stmt.setString(2, c.getCpf());
@@ -88,7 +88,7 @@ public class ClienteDAO {
 
       stmt.executeUpdate();
     } catch (SQLException ex) {
-      Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+      Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
     } finally {
       ConexaoDB.fecharConexao(con, stmt);
     }
@@ -101,7 +101,7 @@ public class ClienteDAO {
     int cliente_id = 0;
 
     try {
-      stmt = con.prepareStatement("SELECT MAX(id) as id FROM CLIENTE;");
+      stmt = con.prepareStatement("SELECT MAX(id) as id FROM CLIENTEs;");
       rs = stmt.executeQuery();
 
       while (rs.next()) {
@@ -123,7 +123,7 @@ public class ClienteDAO {
     Cliente c = new Cliente();
 
     try {
-      stmt = con.prepareStatement("SELECT * FROM CLIENTE WHERE id = " + id);
+      stmt = con.prepareStatement("SELECT * FROM CLIENTEs WHERE id = " + id);
       rs = stmt.executeQuery();
 
       rs.next();
@@ -161,9 +161,40 @@ public class ClienteDAO {
       stmt.setInt(6, c.getId());
       stmt.executeUpdate();
     } catch (SQLException ex) {
-      Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+      Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
     } finally {
       ConexaoDB.fecharConexao(con, stmt);
     }
+  }
+
+  public Cliente getCliente(String email, String senha) {
+    Connection con = ConexaoDB.obterConexao();
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+    Cliente c = null;
+
+    try {
+      stmt = con.prepareStatement("select * from clientes where email = '" + email + "' and senha = '" + senha + "';");
+      rs = stmt.executeQuery();
+
+      rs.next(); //Vá para a última linha do resultSet:
+      int rows = rs.getRow(); //Pegue o número da linha
+
+      if (rows == 1) {
+        c = new Cliente();
+        c.setId(rs.getInt("id"));
+        c.setNome(rs.getString("nome"));
+        c.setEmail(rs.getString("email"));
+        c.setSenha(rs.getString("senha"));
+        c.setTelefone(rs.getString("telefone"));
+
+      }
+
+    } catch (SQLException ex) {
+      Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+    } finally {
+      ConexaoDB.fecharConexao(con, stmt, rs);
+    }
+    return c;
   }
 }

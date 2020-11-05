@@ -94,31 +94,31 @@
 
             <div class="form-group">
               <label for="text">CEP:</label>
-              <input type="text" class="form-control" placeholder="Digite o cep" onblur="pesquisacep(this.value)" id="cep_faturamento">
+              <input type="text" class="form-control" placeholder="Digite o cep" onblur="pesquisacep(this.value)" id="cep_faturamento" name="cep_faturamento">
             </div>
             <div class="form-group">
               <label for="text">Logradouro:</label>
-              <input type="text" class="form-control" placeholder="Digite o logradouro" id="logradouro_faturamento">
+              <input type="text" class="form-control" placeholder="Digite o logradouro" id="logradouro_faturamento" name="logradouro_faturamento">
             </div>
             <div class="form-group">
               <label for="text">Número:</label>
-              <input type="text" class="form-control" placeholder="Digite o número" id="numero_faturamento">
+              <input type="text" class="form-control" placeholder="Digite o número" id="numero_faturamento" name="numero_faturamento">
             </div>
             <div class="form-group">
               <label for="text">Complemento:</label>
-              <input type="text" class="form-control" placeholder="Digite o complemento" id="complemento_faturamento">
+              <input type="text" class="form-control" placeholder="Digite o complemento" id="complemento_faturamento" name="complemento_faturamento">
             </div>
             <div class="form-group">
               <label for="text">Bairro:</label>
-              <input type="text" class="form-control" placeholder="Digite o bairro" id="bairro_faturamento">
+              <input type="text" class="form-control" placeholder="Digite o bairro" id="bairro_faturamento" name="bairro_faturamento">
             </div>
             <div class="form-group">
               <label for="text">Cidade:</label>
-              <input type="text" class="form-control" placeholder="Digite a cidade" id="cidade_faturamento">
+              <input type="text" class="form-control" placeholder="Digite a cidade" id="cidade_faturamento" name="cidade_faturamento">
             </div>
             <div class="form-group">
               <label for="text">Estado:</label>
-              <input type="text" class="form-control" placeholder="Digite o estado" id="estado_faturamento">
+              <input type="text" class="form-control" placeholder="Digite o estado" id="estado_faturamento" name="estado_faturamento">
             </div>
           </div>
 
@@ -135,31 +135,31 @@
 
             <div class="form-group">
               <label for="text">CEP:</label>
-              <input type="text" class="form-control" placeholder="Digite o cep" id="cep_entrega">
+              <input type="text" class="form-control" placeholder="Digite o cep" onblur="pesquisacep1(this.value)" id="cep_entrega" name="cep_entrega">
             </div>
             <div class="form-group">
               <label for="text">Logradouro:</label>
-              <input type="text" class="form-control" placeholder="Digite o logradouro" id="logradouro_entrega">
+              <input type="text" class="form-control" placeholder="Digite o logradouro" id="logradouro_entrega" name="logradouro_entrega">
             </div>
             <div class="form-group">
               <label for="text">Número:</label>
-              <input type="text" class="form-control" placeholder="Digite o número" id="numero_entrega">
+              <input type="text" class="form-control" placeholder="Digite o número" id="numero_entrega" name="numero_entrega">
             </div>
             <div class="form-group">
               <label for="text">Complemento:</label>
-              <input type="text" class="form-control" placeholder="Digite o complemento" id="complemento_entrega">
+              <input type="text" class="form-control" placeholder="Digite o complemento" id="complemento_entrega" name="complemento_entrega">
             </div>
             <div class="form-group">
               <label for="text">Bairro:</label>
-              <input type="text" class="form-control" placeholder="Digite o bairro" id="bairro_entrega">
+              <input type="text" class="form-control" placeholder="Digite o bairro" id="bairro_entrega" name="bairro_entrega">
             </div>
             <div class="form-group">
               <label for="text">Cidade:</label>
-              <input type="text" class="form-control" placeholder="Digite a cidade" id="cidade_entrega">
+              <input type="text" class="form-control" placeholder="Digite a cidade" id="cidade_entrega" name="cidade_entrega">
             </div>
             <div class="form-group">
               <label for="text">Estado:</label>
-              <input type="text" class="form-control" placeholder="Digite o estado" id="estado_entrega">
+              <input type="text" class="form-control" placeholder="Digite o estado" id="estado_entrega" name="estado_entrega">
             </div>
           </div>
 
@@ -195,7 +195,7 @@
                   <div class="modal-body" style="text-align:left">
                     <div class="form-group">
                       <label for="text">CEP:</label>
-                      <input type="text" class="form-control" placeholder="Digite o cep" id="cep">
+                      <input type="text" class="form-control" placeholder="Digite o cep" onblur="pesquisacep2(this.value)" id="cep">
                     </div>
                     <div class="form-group">
                       <label for="text">Logradouro:</label>
@@ -237,8 +237,7 @@
 
           <div class="form-group">
             <button type="submit" value="submit" class="btn btn-outline-success">Cadastrar</button>
-            <button type="button" id="visualizar" class="btn btn-outline-secondary" onclick="visualizarProduto();">Visualizar</button>
-            <button class="btn btn-outline-info" type="reset" value="Reset" onclick="const myNode = document.getElementById('lista-imagens');myNode.innerHTML = ''; const myNode2 = document.getElementById('lista-pr');myNode2.innerHTML = '';">Resetar</button>
+            <button class="btn btn-outline-info" type="reset" value="Reset" onclick="const myNode = document.getElementById('lista-enderecos');myNode.innerHTML = '';">Resetar</button>
 
         </form>
       </div>

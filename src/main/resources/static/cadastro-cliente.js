@@ -102,6 +102,22 @@ function limpa_formulário_cep() {
   document.getElementById('estado_faturamento').value = ("");
 }
 
+function limpa_formulário_cep1() {
+  //Limpa valores do formulário de cep.
+  document.getElementById('logradouro_entrega').value = ("");
+  document.getElementById('bairro_entrega').value = ("");
+  document.getElementById('cidade_entrega').value = ("");
+  document.getElementById('estado_entrega').value = ("");
+}
+
+function limpa_formulário_cep2() {
+  //Limpa valores do formulário de cep.
+  document.getElementById('logradouro').value = ("");
+  document.getElementById('bairro').value = ("");
+  document.getElementById('cidade').value = ("");
+  document.getElementById('estado').value = ("");
+}
+
 function meu_callback(conteudo) {
   if (!("erro" in conteudo)) {
     //Atualiza os campos com os valores.
@@ -113,6 +129,36 @@ function meu_callback(conteudo) {
   else {
     //CEP não Encontrado.
     limpa_formulário_cep();
+    alert("CEP não encontrado.");
+  }
+}
+
+function meu_callback1(conteudo) {
+  if (!("erro" in conteudo)) {
+    //Atualiza os campos com os valores.
+    document.getElementById('logradouro_entrega').value = (conteudo.logradouro);
+    document.getElementById('bairro_entrega').value = (conteudo.bairro);
+    document.getElementById('cidade_entrega').value = (conteudo.localidade);
+    document.getElementById('estado_entrega').value = (conteudo.uf);
+  } //end if.
+  else {
+    //CEP não Encontrado.
+    limpa_formulário_cep();
+    alert("CEP não encontrado.");
+  }
+}
+
+function meu_callback2(conteudo) {
+  if (!("erro" in conteudo)) {
+    //Atualiza os campos com os valores.
+    document.getElementById('logradouro').value = (conteudo.logradouro);
+    document.getElementById('bairro').value = (conteudo.bairro);
+    document.getElementById('cidade').value = (conteudo.localidade);
+    document.getElementById('estado').value = (conteudo.uf);
+  } //end if.
+  else {
+    //CEP não Encontrado.
+    limpa_formulário_cep2();
     alert("CEP não encontrado.");
   }
 }
@@ -163,21 +209,112 @@ function pesquisacep(valor) {
 }
 
 function espelharEndereco(check) {
-  if(check) {
-    document.getElementById('cep_entrega').value= document.getElementById('cep_faturamento').value;
-document.getElementById('logradouro_entrega').value= document.getElementById('logradouro_faturamento').value;
-document.getElementById('numero_entrega').value= document.getElementById('numero_faturamento').value;
-document.getElementById('complemento_entrega').value= document.getElementById('complemento_faturamento').value;
-document.getElementById('bairro_entrega').value= document.getElementById('bairro_faturamento').value;
-document.getElementById('cidade_entrega').value= document.getElementById('cidade_faturamento').value;
-document.getElementById('estado_entrega').value= document.getElementById('estado_faturamento').value;
+  if (check) {
+    document.getElementById('cep_entrega').value = document.getElementById('cep_faturamento').value;
+    document.getElementById('logradouro_entrega').value = document.getElementById('logradouro_faturamento').value;
+    document.getElementById('numero_entrega').value = document.getElementById('numero_faturamento').value;
+    document.getElementById('complemento_entrega').value = document.getElementById('complemento_faturamento').value;
+    document.getElementById('bairro_entrega').value = document.getElementById('bairro_faturamento').value;
+    document.getElementById('cidade_entrega').value = document.getElementById('cidade_faturamento').value;
+    document.getElementById('estado_entrega').value = document.getElementById('estado_faturamento').value;
   } else {
-    document.getElementById('cep_entrega').value= "";
-document.getElementById('logradouro_entrega').value= "";
-document.getElementById('numero_entrega').value= "";
-document.getElementById('complemento_entrega').value= "";
-document.getElementById('bairro_entrega').value= "";
-document.getElementById('cidade_entrega').value= "";
-document.getElementById('estado_entrega').value= "";
+    document.getElementById('cep_entrega').value = "";
+    document.getElementById('logradouro_entrega').value = "";
+    document.getElementById('numero_entrega').value = "";
+    document.getElementById('complemento_entrega').value = "";
+    document.getElementById('bairro_entrega').value = "";
+    document.getElementById('cidade_entrega').value = "";
+    document.getElementById('estado_entrega').value = "";
+  }
+}
+
+
+function pesquisacep1(valor) {
+
+  //Nova variável "cep" somente com dígitos.
+  var cep = valor.replace(/\D/g, '');
+
+  //Verifica se campo cep possui valor informado.
+  if (cep != "") {
+
+    //Expressão regular para validar o CEP.
+    var validacep = /^[0-9]{8}$/;
+
+    //Valida o formato do CEP.
+    if (validacep.test(cep)) {
+
+      //Preenche os campos com "..." enquanto consulta webservice.
+      document.getElementById('logradouro_entrega').value = "...";
+      document.getElementById('bairro_entrega').value = "...";
+      document.getElementById('cidade_entrega').value = "...";
+      document.getElementById('estado_entrega').value = "...";
+
+      //Cria um elemento javascript.
+      var script = document.createElement('script');
+
+      //Sincroniza com o callback.
+      script.src = 'https://viacep.com.br/ws/' + cep + '/json/?callback=meu_callback1';
+
+
+      //Insere script no documento e carrega o conteúdo.
+      document.body.appendChild(script);
+
+      console.log(script)
+
+    } //end if.
+    else {
+      //cep é inválido.
+      limpa_formulário_cep1();
+      alert("Formato de CEP inválido.");
+    }
+  } //end if.
+  else {
+    //cep sem valor, limpa formulário.
+    limpa_formulário_cep1();
+  }
+}
+
+function pesquisacep2(valor) {
+
+  //Nova variável "cep" somente com dígitos.
+  var cep = valor.replace(/\D/g, '');
+
+  //Verifica se campo cep possui valor informado.
+  if (cep != "") {
+
+    //Expressão regular para validar o CEP.
+    var validacep = /^[0-9]{8}$/;
+
+    //Valida o formato do CEP.
+    if (validacep.test(cep)) {
+
+      //Preenche os campos com "..." enquanto consulta webservice.
+      document.getElementById('logradouro').value = "...";
+      document.getElementById('bairro').value = "...";
+      document.getElementById('cidade').value = "...";
+      document.getElementById('estado').value = "...";
+
+      //Cria um elemento javascript.
+      var script = document.createElement('script');
+
+      //Sincroniza com o callback.
+      script.src = 'https://viacep.com.br/ws/' + cep + '/json/?callback=meu_callback2';
+
+
+      //Insere script no documento e carrega o conteúdo.
+      document.body.appendChild(script);
+
+      console.log(script)
+
+    } //end if.
+    else {
+      //cep é inválido.
+      limpa_formulário_cep2();
+      alert("Formato de CEP inválido.");
+    }
+  } //end if.
+  else {
+    //cep sem valor, limpa formulário.
+    limpa_formulário_cep2();
   }
 }

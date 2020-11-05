@@ -46,10 +46,6 @@ public class Cliente {
   public void setCpf(String cpf) {
     this.cpf = cpf;
   }
-<<<<<<< HEAD
-  
-=======
->>>>>>> 6ef9604b1c8616a08b75a97ecdb4cf797e4f90c1
 
   public String getTelefone() {
     return telefone;

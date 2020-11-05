@@ -179,7 +179,7 @@
               <img src="https://icons.iconarchive.com/icons/papirus-team/papirus-status/512/avatar-default-icon.png" alt="profile_img" height="140px" width="140px;">
             </div>
             <h3>Login</h3>
-            <form action="#" th:object="${cliente}" th:action="@{/Backoffice/Login}" th:method="post">
+            <form action="#" th:object="${cliente}" th:action="@{/Login}" th:method="post">
               <div class="form-group">
                 <input type="text" class="form-control" th:field="*{email}" name="email" placeholder="E-mail">
               </div>
