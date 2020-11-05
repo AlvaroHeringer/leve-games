@@ -151,14 +151,12 @@ public class ClienteDAO {
     PreparedStatement stmt = null;
 
     try {
-      stmt = con.prepareStatement("update produtos set nome = ?, cpf = ?, telefone = ?, email = ?, senha = ?,  where id = ?;");
+      stmt = con.prepareStatement("update clientes set nome = ?, telefone = ?, senha = ?  where id = ?;");
 
       stmt.setString(1, c.getNome());
-      stmt.setString(2, c.getCpf());
-      stmt.setString(3, c.getTelefone());
-      stmt.setString(4, c.getEmail());
-      stmt.setString(5, c.getSenha());
-      stmt.setInt(6, c.getId());
+      stmt.setString(2, c.getTelefone());
+      stmt.setString(3, c.getSenha());
+      stmt.setInt(4, c.getId());
       stmt.executeUpdate();
     } catch (SQLException ex) {
       Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -184,6 +182,7 @@ public class ClienteDAO {
         c = new Cliente();
         c.setId(rs.getInt("id"));
         c.setNome(rs.getString("nome"));
+        c.setCpf(rs.getString("cpf"));
         c.setEmail(rs.getString("email"));
         c.setSenha(rs.getString("senha"));
         c.setTelefone(rs.getString("telefone"));
