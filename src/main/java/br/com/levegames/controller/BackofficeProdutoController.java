@@ -81,7 +81,7 @@ public class BackofficeProdutoController {
   @GetMapping("/Backoffice/Produtos/Visualizar/{id}")
   public ModelAndView verProduto(@PathVariable("id") int id) {
 
-    ModelAndView mv = new ModelAndView("backoffice-produtos-visualizar");
+    ModelAndView mv = new ModelAndView("detalhes");
     ProdutoDAO produtoDao = new ProdutoDAO();
     Produto p = produtoDao.getProdutos(id);
 

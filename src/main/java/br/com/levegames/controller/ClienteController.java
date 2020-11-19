@@ -114,8 +114,11 @@ public class ClienteController {
 
     ModelAndView mv = new ModelAndView("cliente-alterar");
     HttpSession sessao = request.getSession();
+    
+    ClienteDAO clienteDao = new ClienteDAO();
     Cliente c = (Cliente) sessao.getAttribute("cliente");
     
+    c = clienteDao.getCliente(c.getId());
     EnderecoDAO enderecoDao = new EnderecoDAO();
     
     Endereco faturamento = enderecoDao.getEnderecoFaturamento(c.getId());

@@ -70,7 +70,7 @@ function validaCPF() {
 function validaSenhas() {
   let senha = document.getElementById('senha').value;
   let repetirSenha = document.getElementById('repetirSenha').value;
-  if (senha !== repetirSenha) {
+  if (senha !== repetirSenha || senha.length == 0) {
     alert("Senhas não conferem!");
     document.getElementById('senha').classList.add("is-invalid");
     document.getElementById('repetirSenha').classList.add("is-invalid");

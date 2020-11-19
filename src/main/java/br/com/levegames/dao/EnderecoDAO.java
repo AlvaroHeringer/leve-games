@@ -134,6 +134,36 @@ public class EnderecoDAO {
     }
     return e;
   }
+  
+  public Endereco getEnderecoEntregaPagamento(int id) {
+    Connection con = ConexaoDB.obterConexao();
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+    Endereco e = new Endereco();
+
+    try {
+      stmt = con.prepareStatement("select * from enderecos where id = " + id + " and is_faturamento = false;");
+      rs = stmt.executeQuery();
+
+      rs.next();
+
+      e.setId(rs.getInt("id"));
+      e.setCliente_id(id);
+      e.setCep(rs.getString("cep"));
+      e.setLogradouro(rs.getString("logradouro"));
+      e.setNumero(rs.getString("numero"));
+      e.setComplemento(rs.getString("complemento"));
+      e.setBairro(rs.getString("bairro"));
+      e.setCidade(rs.getString("cidade"));
+      e.setEstado(rs.getString("estado"));
+      e.setIs_faturamento(false);
+    } catch (SQLException ex) {
+      Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+    } finally {
+      ConexaoDB.fecharConexao(con, stmt, rs);
+    }
+    return e;
+  }
 
   public List<Endereco> getEnderecos(int id) {
     Connection con = ConexaoDB.obterConexao();

@@ -135,7 +135,6 @@ public class ClienteDAO {
         c.setTelefone(rs.getString("telefone"));
         c.setEmail(rs.getString("email"));
         c.setSenha(rs.getString("senha"));
-        c.setRegistro_deletado(rs.getBoolean("registro_deletado"));
         
 
     } catch (SQLException ex) {
