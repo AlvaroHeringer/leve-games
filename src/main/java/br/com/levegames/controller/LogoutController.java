@@ -31,13 +31,4 @@ public class LogoutController {
     sessao.removeAttribute("cliente");
     return mv;
   }
-
-  @GetMapping("/Logoff")
-  public ModelAndView deslogarCliente(HttpServletRequest request) {
-    ModelAndView mv = new ModelAndView("redirect:/Home");
-    HttpSession sessao = request.getSession();
-    sessao.removeAttribute("cliente");
-    return mv;
-  }
-
 }
