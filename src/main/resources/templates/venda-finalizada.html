@@ -103,9 +103,10 @@
               </div>
   
               <div th:if="${pagamento.meio_pagamento == 'boleto'}">
+                <p>Boleto gerado:</p>
                 <div class="mdn-CopyContainer">
                   <div class="mdn-CopyContainer-content">
-                    <p class="mdn-CopyContainer-content-toCopy mdn-Heading mdn-Heading--xxs" mdn-copycontainer-value="23793.38128 60001.40148295000.529206 8 77060000032219" mdn-copycontainer-after="Clique para copiar">
+                    <p class="mdn-CopyContainer-content-toCopy mdn-Heading mdn-Heading--xxs" th:text="'23793.38128 60001.40148295000.529206 8 770600000' + ${total}" mdn-copycontainer-value="23793.38128 60001.40148295000.529206 8 77060000032219" mdn-copycontainer-after="Clique para copiar">
                       23793.38128 60001.40148295000.529206 8 77060000032219
                     </p>
                   </div>

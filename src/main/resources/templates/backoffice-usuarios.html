@@ -66,7 +66,7 @@
             </td>
             <td class="text-center">
               <form action="#" th:action="${'/Backoffice/Usuarios/' + u.id}" th:method="delete">
-                <button class="btn btn-outline-danger btn-sm" type="submit" value="submit">Excluir</button>
+                <button class="btn btn-outline-danger btn-sm" type="submit" value="submit" th:disabled="${u.cargo == 'Administrador'}">Excluir</button>
               </form>
             </td>
           </tr>

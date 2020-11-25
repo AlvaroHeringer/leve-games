@@ -184,4 +184,33 @@ public class UsuarioDAO {
     return u;
   }
 
+  public List<Usuario> getUsuariosDiferenteDoLogado(int id) {
+    Connection con = ConexaoDB.obterConexao();
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+
+    List<Usuario> usuarios = new ArrayList<>();
+
+    try {
+      stmt = con.prepareStatement("select * from usuarios where registro_deletado = false and id <> " + id);
+      rs = stmt.executeQuery();
+
+      while (rs.next()) {
+        Usuario u = new Usuario();
+        u.setId(rs.getInt("id"));
+        u.setNome(rs.getString("nome"));
+        u.setEmail(rs.getString("email"));
+        u.setSenha(rs.getString("senha"));
+        u.setCargo(rs.getString("cargo"));
+        u.setRegistro_deletado(rs.getBoolean("registro_deletado"));
+        usuarios.add(u);
+      }
+    } catch (SQLException ex) {
+      Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+    } finally {
+      ConexaoDB.fecharConexao(con, stmt, rs);
+    }
+    return usuarios;
+  }
+
 }

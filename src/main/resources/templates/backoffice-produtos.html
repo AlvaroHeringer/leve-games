@@ -68,13 +68,16 @@
             </td>
             <td class="text-center">
               <form action="#" th:action="${'/Backoffice/Produtos/' + game.id}" th:method="delete">
-                <button class="btn btn-outline-danger btn-sm" type="submit" value="submit">Excluir</button>
+                <button class="btn btn-outline-danger btn-sm" type="submit" value="submit" th:disabled="${session.user.cargo == 'Estoquista'}">Excluir</button>
               </form>
             </td>
           </tr>
         </table>
         <div style="text-align: right">
-          <a href="/Backoffice/Produtos/Novo" class="btn btn-success" >Adicionar Produto</a>
+              <form action="#" th:action="@{/Backoffice/Produtos/Novo}" th:method="get">
+                <button class="btn btn-success" type="submit" value="submit" th:disabled="${session.user.cargo == 'Estoquista'}">Adicionar Produto</button>
+              </form>
+
         </div>
 
       </div>

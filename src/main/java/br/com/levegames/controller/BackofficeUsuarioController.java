@@ -5,6 +5,8 @@ import br.com.levegames.model.Usuario;
 import java.util.logging.Logger;
 import java.util.List;
 import java.util.Set;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,8 +25,13 @@ import org.springframework.web.servlet.ModelAndView;
 public class BackofficeUsuarioController {
 
   @GetMapping("/Backoffice/Usuarios")
-  public ModelAndView mostrarTela() {
+  public ModelAndView mostrarTela(HttpServletRequest request) {
 
+    HttpSession sessao = request.getSession();
+
+    Usuario u = (Usuario) sessao.getAttribute("user");
+    
+    
     ModelAndView mv = new ModelAndView("backoffice-usuarios");
     UsuarioDAO usuarioDao = new UsuarioDAO();
     List<Usuario> usuarios = usuarioDao.getUsuarios();
@@ -72,7 +79,6 @@ public class BackofficeUsuarioController {
       return mv;
     }
 
-    
     usuarioDao.salvarUsuario(u);
     ModelAndView mv = new ModelAndView("redirect:/Backoffice/Usuarios");
     return mv;

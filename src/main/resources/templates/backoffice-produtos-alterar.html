@@ -44,21 +44,21 @@
         <form action="#" th:object="${produto}" th:action="@{/Backoffice/Produtos/} + ${produto.id}" th:method="put">
           <div class="form-group">
             <label for="text">Título:</label>
-            <input type="text" class="form-control w-50" placeholder="Digite o título" th:field="*{nome}" id="nome">
+            <input type="text" class="form-control w-50" placeholder="Digite o título" th:field="*{nome}" id="nome" th:disabled="${session.user.cargo == 'Estoquista'}">
           </div>
           <div class="form-group">
             <label for="text">Descrição curta:</label>
-            <input type="text" class="form-control" placeholder="Digite uma descrição curta" th:field="*{descricao_curta}" id="descricao_curta">
+            <input type="text" class="form-control" placeholder="Digite uma descrição curta" th:field="*{descricao_curta}" id="descricao_curta" th:disabled="${session.user.cargo == 'Estoquista'}">
           </div>
           <div class="form-group">
             <label for="comment">Descrição detalhada:</label>
-            <textarea type="text-area" class="form-control" rows="5" placeholder="Digite uma descrição detalhada" th:field="*{descricao_detalhada}" id="descricao_detalhada"></textarea>
+            <textarea type="text-area" class="form-control" rows="5" placeholder="Digite uma descrição detalhada" th:field="*{descricao_detalhada}" id="descricao_detalhada" th:disabled="${session.user.cargo == 'Estoquista'}"></textarea>
           </div>
           <div class="row">
             <div class="col-sm-6">
               <div class="form-group">
                 <label for="currency">Preço:</label>
-                <input type="number" class="form-control" placeholder="Digite o preço" th:field="*{preco}" id="preco">
+                <input type="number" class="form-control" placeholder="Digite o preço" th:field="*{preco}" id="preco" th:disabled="${session.user.cargo == 'Estoquista'}">
               </div>
             </div>
             <div class="col-sm-6">
@@ -70,12 +70,12 @@
           </div>
           <div class="form-group form-check">
             <label class="form-check-label">
-              <input class="form-check-input" type="checkbox" th:field="*{disponivel_venda}" id="disponivel_venda"> Disponível para vendas
+              <input class="form-check-input" type="checkbox" th:field="*{disponivel_venda}" id="disponivel_venda" th:disabled="${session.user.cargo == 'Estoquista'}"> Disponível para vendas
             </label>
           </div>
           <div class="form-group">
             <label for="select">Selecione o Console:</label>
-            <select class="form-control w-50" th:field="*{console_id}" id="console_id">
+            <select class="form-control w-50" th:field="*{console_id}" id="console_id" th:disabled="${session.user.cargo == 'Estoquista'}">
               <option value="-1"> -- </option>
               <option th:each="console : ${consoles}"
                       th:value="${console.id}"
@@ -91,14 +91,14 @@
               <li class="list-group-item d-flex justify-content-between align-items-center">
                 <p th:text="${imagem.url_imagem}">teste</p>
                 <input name="imagem" type="hidden" th:value="${imagem.url_imagem}">
-                <button type="button" class="btn btn-danger sm" onclick="$(this).closest('li').remove();">Remover</button>
+                <button type="button" class="btn btn-danger sm" onclick="$(this).closest('li').remove();" th:disabled="${session.user.cargo == 'Estoquista'}">Remover</button>
               </li>
             </ul>
 
           </div>
           <div class="form-group" style="text-align: right" >
             <!-- Button to Open the Modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" th:disabled="${session.user.cargo == 'Estoquista'}">
               Adicionar Imagem
             </button>
 
@@ -143,7 +143,7 @@
                   <p class="font-weight-light" name="resposta" th:text="${perguntaResposta.resposta}">Resposta: Não. É apenas o jogo base.</p>
                   <input name="resposta" type="hidden" th:value="${perguntaResposta.resposta}">
                 </div>
-                <button type="button" class="btn btn-danger sm" onclick="$(this).closest('li').remove();">Remover</button>
+                <button type="button" class="btn btn-danger sm" onclick="$(this).closest('li').remove();" th:disabled="${session.user.cargo == 'Estoquista'}">Remover</button>
               </li>
 
             </ul>
@@ -151,7 +151,7 @@
           </div>
           <div class="form-group" style="text-align: right" >
             <!-- Button to Open the Modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2" th:disabled="${session.user.cargo == 'Estoquista'}">
               Adicionar Pergunta<br/> e Resposta
             </button>
 
