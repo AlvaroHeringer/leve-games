@@ -31,6 +31,9 @@ public class LogoutController {
     sessao.removeAttribute("cliente");
     return mv;
   }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> e6571506fb48c2bf504a6b4ca974ebdf68276ef2
 }

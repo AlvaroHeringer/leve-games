@@ -47,16 +47,22 @@ public class UsuarioDAO {
     Connection con = ConexaoDB.obterConexao();
     PreparedStatement stmt = null;
 
-    try {
-      stmt = con.prepareStatement("update usuarios set registro_deletado = true where id = ?");
+    Usuario user = getUsuario(id);
 
-      stmt.setInt(1, id);
+    if (user.getCargo() != "Administrador") {
+      try {
+        stmt = con.prepareStatement("update usuarios set registro_deletado = true where id = ?");
 
-      stmt.executeUpdate();
-    } catch (SQLException ex) {
-      Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-    } finally {
-      ConexaoDB.fecharConexao(con, stmt);
+        stmt.setInt(1, id);
+
+        stmt.executeUpdate();
+      } catch (SQLException ex) {
+        Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+      } finally {
+        ConexaoDB.fecharConexao(con, stmt);
+      }
+    } else {
+      //tratar excepiton
     }
   }
 
