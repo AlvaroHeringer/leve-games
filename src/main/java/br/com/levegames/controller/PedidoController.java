@@ -62,10 +62,10 @@ public class PedidoController {
     ProdutoDAO produtoDao = new ProdutoDAO();
     ImagemProdutoDAO imagemDao = new ImagemProdutoDAO();
 
-    Produto p = produtoDao.getProdutos(produtoId);
-    List<ImagemProduto> img = imagemDao.getImagensProduto(produtoId);
+    Produto p = produtoDao.getProdutos(id);
+    List<ImagemProduto> img = imagemDao.getImagensProduto(id);
 
-    produtoCarrinho.setId(produtoId);
+    produtoCarrinho.setId(id);
     produtoCarrinho.setNome(p.getNome());
     produtoCarrinho.setUrl_imagem(img.get(0).getUrl_imagem());
     produtoCarrinho.setQtde(1);
